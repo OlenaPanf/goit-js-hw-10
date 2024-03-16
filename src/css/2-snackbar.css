@@ -1,92 +1,64 @@
-/* Vite promo styles */
-.vite-promo {
-  padding: 5rem 0;
+body {
+  font: 400 16px / 1.5 'Montserrat', sans-serif;
+  color: #2e2f42;
+  letter-spacing: 0.04em;
 }
-
-.vite-promo .container {
+.form {
   display: flex;
-  align-items: center;
-  gap: 4rem;
-
-  width: 86vw;
-  margin: 0 auto;
-  padding: 0 20px;
+  flex-direction: column;
+  gap: 24px;
+  justify-content: center;
+  box-sizing: border-box;
 }
-
-.vite-promo .wrapper {
-  max-width: 36rem;
-}
-
-.vite-promo .title,
-.vite-promo .text {
-  margin-bottom: 1.5rem;
-
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1.14;
-
-  color: #213547;
-}
-
-.vite-promo .gradient {
-  display: inline-block;
-  background-image: linear-gradient(120deg, #bd34fe 30%, #41d1ff);
-
-  -webkit-text-fill-color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
-
-.vite-promo .tagline {
-  font-size: 1.5rem;
-  line-height: 1.5;
-  color: rgba(60, 60, 60, 0.7);
-}
-
-.vite-promo .actions {
+input[type='number' i] {
+  width: 360px;
+  height: 40px;
+  padding: 0 12px;
   display: flex;
+  flex-direction: column;
+  margin-top: 8px;
   align-items: center;
-  gap: 1rem;
+  border-radius: 4px;
+  outline: transparent;
+  border: 1px solid #808080;
+  box-sizing: border-box;
+  transition: border-color 500ms;
+}
+input[type='number' i]:hover {
+  border: 1px solid #000000;
 }
 
-.vite-promo .link {
-  display: inline-block;
-  padding: 0.5rem 1.25rem;
+input[type='number' i]:active {
+  border: 1px solid #4e75ff;
+}
 
+.form fieldset {
+  width: 360px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  display: flex;
+  justify-content: space-around;
+  box-sizing: border-box;
+  transition: border-color 500ms;
+}
+
+.form fieldset:hover {
+  border: 1px solid #000000;
+}
+button {
+  background: #4e75ff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 360px;
+  height: 40px;
   font-weight: 500;
-  text-align: center;
-  white-space: nowrap;
-  color: rgba(255, 255, 255, 0.87);
-
-  background-color: #646cff;
-  border: 1px solid transparent;
-  border-radius: 1.25rem;
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 500ms;
 }
-
-.vite-promo .link:hover,
-.vite-promo .link:focus {
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #747bff;
-}
-
-.vite-promo .thumb {
-  position: relative;
-}
-
-.vite-promo .thumb::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-
-  display: block;
-
-  width: 100%;
-  height: 100%;
-
-  border-radius: 50%;
-  background-image: linear-gradient(-45deg, #bd34fe 50%, #47caff 50%);
-  filter: blur(4.5rem);
+button:hover {
+  background: #6c8cff;
 }
