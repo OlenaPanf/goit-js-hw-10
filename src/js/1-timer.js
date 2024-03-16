@@ -7,30 +7,67 @@ import iziToast from 'izitoast';
 // Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
-const btn = document.querySelector('[data-start]');
-/*const inputDateTimePicker = document.getElementById('datetime-picker');
+const inputDateTimePicker = document.getElementById('datetime-picker'); //ініціалізувала бібліотеку
+const startBtn = document.querySelector('[data-start]'); //доступ до кнопки
+const timerFields = document.querySelectorAll('.value');
+
+let userSelectedDate = null;
 let intervalId = null;
 
-btn.addEventListener('click', () => {
-  const initTime = Date.now(); //запис поточного часу
+// Другим аргументом функції flatpickr(selector, options) можна передати необов'язковий
+// об'єкт параметрів options
+const options = {
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    userSelectedDate = selectedDates[0];
+    checkValidData();
+  },
+};
+flatpickr(inputDateTimePicker, options);
+
+//функція, що перевіряє чи обрана дата взагалі і чи обрана вона в майбутньому
+function checkValidData() {
+  if (!userSelectedDate || userSelectedDate <= new Date()) {
+    iziToast.error({
+      title: 'Error',
+      position: 'topRight',
+      message: 'Please choose a date in the future',
+    });
+    startBtn.disabled = true;
+  } else {
+    startBtn.disabled = false;
+    iziToast.success({
+      title: 'Success',
+      message: 'Correct date',
+      position: 'topRight',
+    });
+  }
+}
+//
+
+startBtn.addEventListener('click', () => {
+  // const initTime = Date.now(); //запис поточного часу, можливо перейменувати в userSelectedDate
 
   intervalId = setInterval(() => {
     const currentTime = Date.now(); //запис часу кожної секунди
-    const diff = currentTime - initTime; //змінна різниці часу
+    const diff = userSelectedDate - currentTime; //змінна різниці часу (передивитись що від чого віднімається)
 
-    // const time = formatTime(diff);
-    // clockFace.textContent = time;
-    // if (diff < 1000) clearInterval(intervalId);
+    const time = convertMs(diff);
+    timerFields[0].innerText = timer.days.toString().padStart(2, '0');
+    timerFields[1].innerText = timer.hours.toString().padStart(2, '0');
+    timerFields[2].innerText = timer.minutes.toString().padStart(2, '0');
+    timerFields[3].innerText = timer.seconds.toString().padStart(2, '0');
+    timerFields.textContent = time;
+    if (diff < 1000) {
+      clearInterval(intervalId);
+      timerFields.forEach(field => (field.textContent = '00'));
+      return;
+    }
   }, 1000);
 });
-
-stopBtn.addEventListener('click', () => {
-  clearInterval(intervalId);
-});
-*/
-// Для підрахунку значень використовуй готову функцію
-// convertMs, де ms — різниця між кінцевою і поточною
-// датою в мілісекундах.
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
