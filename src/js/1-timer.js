@@ -9,13 +9,11 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const inputDateTimePicker = document.getElementById('datetime-picker'); //ініціалізувала бібліотеку
 const startBtn = document.querySelector('[data-start]'); //доступ до кнопки
-const timerFields = document.querySelectorAll('.value');
+const timerFields = document.querySelectorAll('.value'); //доступ до значень таймеру
 
 let userSelectedDate = null;
 let intervalId = null;
 
-// Другим аргументом функції flatpickr(selector, options) можна передати необов'язковий
-// об'єкт параметрів options
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -46,26 +44,26 @@ function checkValidData() {
     });
   }
 }
-//
 
+// запуск таймеру
 startBtn.addEventListener('click', () => {
-  // const initTime = Date.now(); //запис поточного часу, можливо перейменувати в userSelectedDate
+  inputDateTimePicker.disabled = true; //неактивний інпут
+  startBtn.disabled = true; //неактивна кнопка
 
   intervalId = setInterval(() => {
     const currentTime = Date.now(); //запис часу кожної секунди
-    const diff = userSelectedDate - currentTime; //змінна різниці часу (передивитись що від чого віднімається)
-
-    const time = convertMs(diff);
-    timerFields[0].innerText = timer.days.toString().padStart(2, '0');
-    timerFields[1].innerText = timer.hours.toString().padStart(2, '0');
-    timerFields[2].innerText = timer.minutes.toString().padStart(2, '0');
-    timerFields[3].innerText = timer.seconds.toString().padStart(2, '0');
-    timerFields.textContent = time;
+    const diff = userSelectedDate - currentTime; //змінна різниці часу
     if (diff < 1000) {
       clearInterval(intervalId);
       timerFields.forEach(field => (field.textContent = '00'));
       return;
     }
+    const time = convertMs(diff);
+    timerFields[0].innerText = time.days.toString().padStart(2, '0');
+    timerFields[1].innerText = time.hours.toString().padStart(2, '0');
+    timerFields[2].innerText = time.minutes.toString().padStart(2, '0');
+    timerFields[3].innerText = time.seconds.toString().padStart(2, '0');
+    timerFields.textContent = time;
   }, 1000);
 });
 
