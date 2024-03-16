@@ -1,15 +1,11 @@
-// Описаний в документації
 import flatpickr from 'flatpickr';
-// Додатковий імпорт стилів
 import 'flatpickr/dist/flatpickr.min.css';
-// Описаний у документації
 import iziToast from 'izitoast';
-// Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
-const inputDateTimePicker = document.getElementById('datetime-picker'); //ініціалізувала бібліотеку
-const startBtn = document.querySelector('[data-start]'); //доступ до кнопки
-const timerFields = document.querySelectorAll('.value'); //доступ до значень таймеру
+const inputDateTimePicker = document.getElementById('datetime-picker');
+const startBtn = document.querySelector('[data-start]');
+const timerFields = document.querySelectorAll('.value');
 
 let userSelectedDate = null;
 let intervalId = null;
@@ -26,7 +22,7 @@ const options = {
 };
 flatpickr(inputDateTimePicker, options);
 
-//функція, що перевіряє чи обрана дата взагалі і чи обрана вона в майбутньому
+//функція, що перевіряє валідність обраної дати
 function checkValidData() {
   if (!userSelectedDate || userSelectedDate <= new Date()) {
     iziToast.error({
@@ -47,17 +43,18 @@ function checkValidData() {
 
 // запуск таймеру
 startBtn.addEventListener('click', () => {
-  inputDateTimePicker.disabled = true; //неактивний інпут
-  startBtn.disabled = true; //неактивна кнопка
+  inputDateTimePicker.disabled = true;
+  startBtn.disabled = true;
 
   intervalId = setInterval(() => {
-    const currentTime = Date.now(); //запис часу кожної секунди
-    const diff = userSelectedDate - currentTime; //змінна різниці часу
+    const currentTime = Date.now();
+    const diff = userSelectedDate - currentTime;
     if (diff < 1000) {
       clearInterval(intervalId);
       timerFields.forEach(field => (field.textContent = '00'));
       return;
     }
+
     const time = convertMs(diff);
     timerFields[0].innerText = time.days.toString().padStart(2, '0');
     timerFields[1].innerText = time.hours.toString().padStart(2, '0');
